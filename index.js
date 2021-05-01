@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+//IMPORT ROUTES
+const authRoute = require('./routes/auth');
 
 dotenv.config();
 
@@ -11,8 +13,9 @@ connection.once('open', function () {
     console.log('MongoDB server connection established successfully!')
 })
 
-const authRoute = require('./routes/auth');
-
+//MIDDLEWARE
+app.use(express.json());
+//ROUTER MIDDLEWARE
 app.use('/api/user', authRoute);
 
 app.listen(3000, () => console.log('Server is running in port 3000'));
