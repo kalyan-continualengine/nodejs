@@ -2,8 +2,9 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-//IMPORT ROUTES
+//IMPORT API ROUTES
 const authRoute = require('./routes/auth');
+const postsRoute = require('./routes/posts');
 
 dotenv.config();
 
@@ -15,7 +16,9 @@ connection.once('open', function () {
 
 //MIDDLEWARE
 app.use(express.json());
+
 //ROUTER MIDDLEWARE
 app.use('/api/user', authRoute);
+app.use('/api/posts', postsRoute);
 
 app.listen(3000, () => console.log('Server is running in port 3000'));
