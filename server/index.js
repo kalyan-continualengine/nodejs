@@ -18,36 +18,36 @@ const { registerValidation, loginValidation } = require('../validation');
 
 dotenv.config();
 
-// mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true, useUnifiedTopology: true });
-// const connection = mongoose.connection;
-// connection.once('open', function () {
-//     console.log('MongoDB server connection established successfully!')
-// })
+mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true, useUnifiedTopology: true });
+const connection = mongoose.connection;
+connection.once('open', function () {
+    console.log('MongoDB server connection established successfully!')
+})
 
 //FOR SIGNUP API
-// router.post('/signup', async (req, res) => {
+router.post('/signup', async (req, res) => {
 
-//     //validating before adding to db
-//     const { error } = registerValidation(req.body);
-//     if (error) return res.status(400).send(error.details[0].message);
+    //validating before adding to db
+    const { error } = registerValidation(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
-//     //checking if user is already present in database
-//     const emailExist = await User.findOne({ email: req.body.email });
-//     if (emailExist) return res.status(400).send('User is already exist!!');
+    //checking if user is already present in database
+    const emailExist = await User.findOne({ email: req.body.email });
+    if (emailExist) return res.status(400).send('User is already exist!!');
 
-//     //create new user with postman data and save to db
-//     const user = new User({
-//         name: req.body.name,
-//         email: req.body.email,
-//         password: req.body.password
-//     });
-//     try {
-//         const saveUser = await user.save();
-//         res.send(saveUser);
-//     } catch (err) {
-//         res.status(400).send('Something went wrong!!')
-//     }
-// });
+    //create new user with postman data and save to db
+    const user = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password
+    });
+    try {
+        const saveUser = await user.save();
+        res.send(saveUser);
+    } catch (err) {
+        res.status(400).send('Something went wrong!!')
+    }
+});
 
 
 router.get('/posts', (req, res) => {
